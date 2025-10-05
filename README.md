@@ -1,1 +1,1 @@
-# node-js-exercises
+# Node.js educational exercises
