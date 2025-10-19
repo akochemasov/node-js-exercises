@@ -1,7 +1,7 @@
 import { PerformanceObserver, performance } from 'perf_hooks';
 import { Worker } from 'worker_threads';
 import os from 'os';
-import { countDivisibleBy3 } from './helpers.js';
+import { countDivisibleBy3, distributeRanges } from './utils/index.js';
 
 const AMOUNT = 3000000;
 
@@ -24,16 +24,13 @@ const simple = async () => {
 const multithreaded = async () => {
     const cpuCount = os.cpus().length;
     console.log(`Available CPU cores: ${cpuCount}`);
-    const AMOUNT_PER_THREAD = Math.floor(AMOUNT / cpuCount);
+    const ranges = distributeRanges(AMOUNT, cpuCount);
     performance.mark('start-multithreaded');
     await Promise.all(
-      Array.from({ length: cpuCount }).map((_, index) => {
+      ranges.map((range) => {
         return new Promise((resolve, reject) => {
           const worker = new Worker(new URL('./worker.js', import.meta.url), {
-            workerData: {
-              start: index * AMOUNT_PER_THREAD + 1,
-              end: index === cpuCount - 1 ? AMOUNT : (index + 1) * AMOUNT_PER_THREAD,
-            },
+            workerData: range,
           });
           worker.on('message', resolve);
           worker.on('error', reject);

@@ -1,4 +1,4 @@
-export const isDivisibleBy3 = (num) => num % 3 === 0;
+import { isDivisibleBy3 } from './index.js';
 
 export const countDivisibleBy3 = (start, end) => {
   let count = 0;
