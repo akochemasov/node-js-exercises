@@ -5,7 +5,8 @@ import { printError, printInfo } from './log.service.js';
 
 export const STORAGE_DICTIONARY = {
     token: 'token',
-    city: 'city'
+    city: 'city',
+    lang: 'lang'
 }
 
 const configDir = join(homedir(), '.weather-cli');

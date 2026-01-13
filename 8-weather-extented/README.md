@@ -1,26 +1,28 @@
 # Weather CLI
 
+Weather forecast CLI powered by [OpenWeatherMap API](https://openweathermap.org/api)
+
 # Commands
 
-Информация и подсказки по командам
+Help information and command hints
 
 ```bash
 weather -h
 ```
 
-Текущая погода
+Current weather
 
 ```bash
 weather
 ```
 
-Выбор и валидация города
+City selection and validation
 
 ```bash
 weather -s city
 ```
 
-Токен для API погоды
+Weather API token
 
 ```bash
 weather -t token

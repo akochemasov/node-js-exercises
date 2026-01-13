@@ -20,11 +20,12 @@ export const getWeatherIcon = (icon) => {
     return icons[icon] || '';
 };
 
-export const getWeatherByCity = async(city, token) => {
+export const getWeatherByCity = async(city, token, lang = 'en') => {
     const url = new URL('https://api.openweathermap.org/data/2.5/weather');
     url.searchParams.append('q', city);
     url.searchParams.append('appid', token);
     url.searchParams.append('units', 'metric');
+    url.searchParams.append('lang', lang);
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -32,5 +33,6 @@ export const getWeatherByCity = async(city, token) => {
     }
 
     const data = await response.json();
+    console.log(response)
     return data;
 }

@@ -10,6 +10,7 @@ const getForecast = async () => {
     try {
         const city = await getKeyValue(STORAGE_DICTIONARY.city);
         const token = await getKeyValue(STORAGE_DICTIONARY.token);
+        const lang = await getKeyValue(STORAGE_DICTIONARY.lang) || 'en';
 
         if (!token) {
             throw new Error('API token is not set. Use: weather -t YOUR_API_TOKEN');    
@@ -19,8 +20,8 @@ const getForecast = async () => {
             throw new Error('City is not set. Use: weather -s CITY_NAME');
         }
 
-        const data = await getWeatherByCity(city, token);
-        printWeather(data, getWeatherIcon(data.weather[0].icon));
+        const data = await getWeatherByCity(city, token, lang);
+        printWeather(data, getWeatherIcon(data.weather[0].icon), lang);
     } catch (error) {
         printError(error);
     }
@@ -33,6 +34,7 @@ const init = async () => {
         .description('CLI utility to get current weather')
         .option('-s, --city <city>', 'set city')
         .option('-t, --token <token>', 'set API token')
+        .option('-l, --lang <lang>', 'set language')
         .option('-i, --info', 'show help information')
         .addHelpText(
             'after',
@@ -61,7 +63,10 @@ const init = async () => {
     if (opts.token) {
         await saveKeyValue(STORAGE_DICTIONARY.token, opts.token);
     }
-    if (opts.city || opts.token) {
+    if (opts.lang) {
+        await saveKeyValue(STORAGE_DICTIONARY.lang, opts.lang);
+    }
+    if (opts.city || opts.token || opts.lang) {
         return;
     }
 
