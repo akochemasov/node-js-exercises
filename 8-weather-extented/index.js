@@ -35,22 +35,7 @@ const init = async () => {
         .option('-s, --city <city>', 'set city')
         .option('-t, --token <token>', 'set API token')
         .option('-l, --lang <lang>', 'set language')
-        .option('-i, --info', 'show help information')
-        .addHelpText(
-            'after',
-            dedent`
-                \n
-                No arguments:
-                    Display the current weather for the saved city.
-
-                Examples:
-                    weather
-                    weather -s Moscow
-                    weather -t YOUR_API_TOKEN
-            `
-        )
         .parse(process.argv);
-
 
     const opts = program.opts();
 
