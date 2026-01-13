@@ -6,7 +6,8 @@ import { printError, printInfo } from './log.service.js';
 export const STORAGE_DICTIONARY = {
     token: 'token',
     city: 'city',
-    lang: 'lang'
+    lang: 'lang',
+    cities: 'cities'
 }
 
 const configDir = join(homedir(), '.weather-cli');
@@ -42,6 +43,16 @@ export const getKeyValue = async (key) => {
         const data = await promises.readFile(filePath, 'utf-8');
         const config = JSON.parse(data);
         return config[key];
+    } catch (error) {
+        printError(`Error reading configuration: ${error.message}`);
+    }
+}
+
+export const getAllConfig = async () => {
+    try {
+        const data = await promises.readFile(filePath, 'utf-8');
+        const config = JSON.parse(data);
+        return config;
     } catch (error) {
         printError(`Error reading configuration: ${error.message}`);
     }

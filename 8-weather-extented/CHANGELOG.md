@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0 (13.01.2026)
+
+- Added saved cities management: `add <city>` to save cities, `remove <city>` to delete them, and `list` to display weather for all saved cities
+- Enhanced `config` command to show all configuration when called without arguments
+
 ## 2.0.0 (13.01.2026)
 
 BREAKING: Changed configuration from flags to `config` subcommand.
