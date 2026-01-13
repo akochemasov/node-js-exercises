@@ -27,3 +27,9 @@ Weather API token
 ```bash
 weather -t token
 ```
+
+Set display language. Available languages: `en` (English), `ru` (Russian)
+
+```bash
+weather -l lang
+```
