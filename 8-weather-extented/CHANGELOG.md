@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0 (13.01.2026)
+
+BREAKING: Changed configuration from flags to `config` subcommand.
+
 ## 1.0.4 (13.01.2026)
 
 Added language settings support and documentation improvements.

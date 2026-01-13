@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import dedent from 'dedent';
-import { printError, printInfo, printWeather } from './services/log.service.js';
+import { printError, printWeather } from './services/log.service.js';
 import { getKeyValue, saveKeyValue, STORAGE_DICTIONARY } from './services/storage.service.js';
 import { getWeatherByCity, getWeatherIcon } from './services/api.service.js';
 
@@ -29,33 +29,35 @@ const getForecast = async () => {
 
 const init = async () => {
     const program = new Command();
+    
     program
         .name('weather')
         .description('CLI utility to get current weather')
-        .option('-s, --city <city>', 'set city')
-        .option('-t, --token <token>', 'set API token')
-        .option('-l, --lang <lang>', 'set language')
-        .parse(process.argv);
+        .addHelpText('after', dedent`
+            \nExamples:
+              weather                          Show weather for default city
+              weather config token <value>     Set API token
+              weather config city <value>      Set default city
+              weather config lang <value>      Set language (en/ru)
+        `)
 
-    const opts = program.opts();
+    program
+        .command('config <key> <value>')
+        .description('Set configuration value')
+        .action(async (key, value) => {
+            const validKeys = Object.values(STORAGE_DICTIONARY);
+            if (!validKeys.includes(key)) {
+                printError('Invalid key. Valid keys are: ' + validKeys.join(', '));
+                return;
+            }
+            await saveKeyValue(key, value);
+        })
 
-    if (opts.info) {
-        printInfo();
-    }
-    if (opts.city) {
-        await saveKeyValue(STORAGE_DICTIONARY.city, opts.city);
-    }
-    if (opts.token) {
-        await saveKeyValue(STORAGE_DICTIONARY.token, opts.token);
-    }
-    if (opts.lang) {
-        await saveKeyValue(STORAGE_DICTIONARY.lang, opts.lang);
-    }
-    if (opts.city || opts.token || opts.lang) {
-        return;
-    }
+    program.action(async () => {
+        await getForecast();
+    });
 
-    getForecast();
+    await program .parse(process.argv);
 }
 
 init();

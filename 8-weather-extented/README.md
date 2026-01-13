@@ -4,32 +4,36 @@ Weather forecast CLI powered by [OpenWeatherMap API](https://openweathermap.org/
 
 # Commands
 
-Help information and command hints
+## Configuration
+
+Set API token
 
 ```bash
-weather -h
+weather config token <value>
 ```
 
-Current weather
+Set default city
+
+```bash
+weather config city <value>
+```
+
+Set display language. Available: `en` (English), `ru` (Russian)
+
+```bash
+weather config lang <value>
+```
+
+## Weather Display
+
+Current weather for default city
 
 ```bash
 weather
 ```
 
-City selection and validation
+Help information
 
 ```bash
-weather -s city
-```
-
-Weather API token
-
-```bash
-weather -t token
-```
-
-Set display language. Available languages: `en` (English), `ru` (Russian)
-
-```bash
-weather -l lang
+weather -h
 ```
