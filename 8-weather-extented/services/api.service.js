@@ -33,6 +33,5 @@ export const getWeatherByCity = async(city, token, lang = 'en') => {
     }
 
     const data = await response.json();
-    console.log(response)
     return data;
 }

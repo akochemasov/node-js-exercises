@@ -9,6 +9,10 @@ export const printSuccess = (message) => {
     console.log(`${chalk.bgGreen(' SUCCESS ')} ${message}`);
 }
 
+export const printInfo = (message) => {
+    console.log(`${chalk.bgBlue(' INFO ')} ${message}`);
+}
+
 export const printWeather = (data, icon, lang = 'en') => {
     if (lang === 'ru') {
         printSuccess(dedent
