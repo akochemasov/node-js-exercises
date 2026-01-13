@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4 (13.01.2026)
+
+Added language settings support and documentation improvements.
+
 ## 1.0.3 (13.01.2026)
 
 Added colored console output and weather icons display.
