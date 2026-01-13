@@ -1,0 +1,21 @@
+{
+  "name": "sovik-weather-cli",
+  "version": "2.1.0",
+  "description": "CLI for getting weather information",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "weather": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "dedent": "^1.7.1"
+  }
+}
