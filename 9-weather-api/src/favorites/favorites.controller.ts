@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { BaseController, type LoggerService } from "../common";
 import { addFavorite, getFavorites, removeFavorite } from "./favorites.service";
+import { HTTPError } from "../errors/http-error.class";
 
 export class FavoritesController extends BaseController {
     constructor(logger: LoggerService) {
@@ -25,7 +26,8 @@ export class FavoritesController extends BaseController {
     }
 
     list(req: Request, res: Response, next: NextFunction): void {
-        res.json(Array.from(getFavorites()));
+        // res.json(Array.from(getFavorites()));
+        next(new HTTPError(501, 'Not implemented', 'FavoritesController'));
     }
 
     add(req: Request, res: Response, next: NextFunction): void {

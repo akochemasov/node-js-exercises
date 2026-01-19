@@ -2,12 +2,14 @@ import { App } from "./app";
 import { WeatherController } from "./weather/weather.controller";
 import { FavoritesController } from "./favorites/favorites.controller";
 import { LoggerService } from "./common/logger.service";
+import { ExceptionFilters } from "./errors/exception.filters";
 
 const init = async () => {
     const logger = new LoggerService();
     const weatherController = new WeatherController(logger);
     const favoritesController = new FavoritesController(logger);
-    const app = new App(logger, weatherController, favoritesController);
+    const exceptionFilters = new ExceptionFilters(logger);
+    const app = new App(logger, weatherController, favoritesController, exceptionFilters);
 
     await app.init();
 }
