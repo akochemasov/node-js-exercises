@@ -1,7 +1,7 @@
 import { App } from "./app";
 import { WeatherController } from "./weather/weather.controller";
 import { FavoritesController } from "./favorites/favorites.controller";
-import { LoggerService } from "./common/logger.service";
+import { LoggerService } from "./logger/logger.service";
 import { ExceptionFilters } from "./errors/exception.filters";
 
 const init = async () => {

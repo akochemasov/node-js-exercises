@@ -1,6 +1,6 @@
 import express, { type Express } from 'express';
 import { Server } from 'http';
-import { type LoggerService } from './common/logger.service';
+import { type LoggerService } from './logger/logger.service';
 import type { WeatherController } from './weather/weather.controller';
 import type { FavoritesController } from './favorites/favorites.controller';
 import type { ExceptionFilters } from './errors/exception.filters';
