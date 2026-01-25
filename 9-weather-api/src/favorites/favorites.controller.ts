@@ -5,9 +5,10 @@ import { addFavorite, getFavorites, removeFavorite } from "./favorites.service";
 import { HTTPError } from "../errors/http-error.class";
 import { TOKENS } from "../common";
 import type { ILogger } from "../logger";
+import type { IFavoritesController } from "./favorites.controller.interface";
 
 @injectable()
-export class FavoritesController extends BaseController {
+export class FavoritesController extends BaseController implements IFavoritesController {
     constructor(@inject(TOKENS.Logger) private logger: ILogger) {
         super(logger);
         this.bindRoutes([

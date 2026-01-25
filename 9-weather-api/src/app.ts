@@ -1,9 +1,9 @@
 import express, { type Express } from 'express';
 import { Server } from 'http';
 import { injectable, inject } from 'inversify';
-import type { WeatherController } from './weather/weather.controller';
-import type { FavoritesController } from './favorites/favorites.controller';
-import type { ExceptionFilters } from './errors/exception.filters';
+import type { IWeatherController } from './weather';
+import type { IFavoritesController } from './favorites';
+import type { IExceptionFilters } from './errors';
 import { TOKENS } from './common';
 import type { ILogger } from './logger';
 
@@ -15,9 +15,9 @@ export class App {
     
     constructor(
         @inject(TOKENS.Logger) private logger: ILogger,
-        @inject(TOKENS.WeatherController) private weatherController: WeatherController, 
-        @inject(TOKENS.FavoritesController) private favoritesController: FavoritesController, 
-        @inject(TOKENS.ExceptionFilters) private exceptionFilters: ExceptionFilters
+        @inject(TOKENS.WeatherController) private weatherController: IWeatherController, 
+        @inject(TOKENS.FavoritesController) private favoritesController: IFavoritesController, 
+        @inject(TOKENS.ExceptionFilters) private exceptionFilters: IExceptionFilters
     ) {
         this.app = express();
         this.app.use(express.json());    

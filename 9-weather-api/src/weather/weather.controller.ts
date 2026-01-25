@@ -5,9 +5,10 @@ import { getWeatherByCity, getWeatherIcon, formatWeatherResponse } from "./weath
 import { getFavorites } from "../favorites";
 import { TOKENS } from "../common";
 import type { ILogger } from "../logger";
+import type { IWeatherController } from "./weather.controller.interface";
 
 @injectable()
-export class WeatherController extends BaseController {
+export class WeatherController extends BaseController implements IWeatherController {
     constructor(@inject(TOKENS.Logger) private logger: ILogger) {
         super(logger);
         this.bindRoutes([
