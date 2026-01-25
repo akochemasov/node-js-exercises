@@ -77,8 +77,3 @@ export type WeatherIconCode =
   | '11d' | '11n'
   | '13d' | '13n'
   | '50d' | '50n';
-
-export interface GetWeatherParams {
-  city: string;
-  lang?: string;
-}
