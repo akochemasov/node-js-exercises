@@ -1,10 +1,14 @@
+import { inject, injectable } from "inversify";
 import type { Request, Response, NextFunction } from "express";
-import { BaseController, type LoggerService } from "../common";
+import { BaseController } from "../common";
 import { addFavorite, getFavorites, removeFavorite } from "./favorites.service";
 import { HTTPError } from "../errors/http-error.class";
+import { TOKENS } from "../common";
+import type { ILogger } from "../logger";
 
+@injectable()
 export class FavoritesController extends BaseController {
-    constructor(logger: LoggerService) {
+    constructor(@inject(TOKENS.Logger) private logger: ILogger) {
         super(logger);
         this.bindRoutes([
             {

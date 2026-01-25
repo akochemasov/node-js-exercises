@@ -1,14 +1,14 @@
+import { inject, injectable } from 'inversify';
 import { type NextFunction, type Request, type Response } from 'express';
-import type { LoggerService } from '../common';
 import type { IExceptionFilters } from './exception.filters.interface';
 import { HTTPError } from './http-error.class';
+import type { ILogger } from '../logger';
+import { TOKENS } from '../common';
 
+@injectable()
 export class ExceptionFilters implements IExceptionFilters {
-    logger: LoggerService;
-
-    constructor(logger: LoggerService) {
-        this.logger = logger;
-    }
+    // @inject указывает Inversify какую зависимость внедрить из контейнера по ключу TOKENS.Logger
+    constructor(@inject(TOKENS.Logger) private logger: ILogger) {}
 
     catch(err: Error | HTTPError, req: Request, res: Response, next: NextFunction) {
         if (err instanceof HTTPError) {

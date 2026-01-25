@@ -1,26 +1,26 @@
 import express, { type Express } from 'express';
 import { Server } from 'http';
-import { type LoggerService } from './logger/logger.service';
+import { injectable, inject } from 'inversify';
 import type { WeatherController } from './weather/weather.controller';
 import type { FavoritesController } from './favorites/favorites.controller';
 import type { ExceptionFilters } from './errors/exception.filters';
+import { TOKENS } from './common';
+import type { ILogger } from './logger';
 
+@injectable()
 export class App {
     app: Express;
     server: Server | undefined;
     port: number = 8000;
-    logger: LoggerService;
-    weatherController: WeatherController;
-    favoritesController: FavoritesController;
-    exceptionFilters: ExceptionFilters
-
-    constructor(logger: LoggerService, weatherController: WeatherController, favoritesController: FavoritesController, exceptionFilters: ExceptionFilters) {
+    
+    constructor(
+        @inject(TOKENS.Logger) private logger: ILogger,
+        @inject(TOKENS.WeatherController) private weatherController: WeatherController, 
+        @inject(TOKENS.FavoritesController) private favoritesController: FavoritesController, 
+        @inject(TOKENS.ExceptionFilters) private exceptionFilters: ExceptionFilters
+    ) {
         this.app = express();
-        this.app.use(express.json());
-        this.logger = logger;
-        this.weatherController = weatherController;
-        this.favoritesController = favoritesController;
-        this.exceptionFilters = exceptionFilters;
+        this.app.use(express.json());    
     }
 
     useRoutes() {

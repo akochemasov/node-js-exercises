@@ -1,10 +1,14 @@
+import { inject, injectable } from "inversify";
 import type { Request, Response, NextFunction } from "express";
-import { BaseController, type LoggerService, type Lang } from "../common";
+import { BaseController, type Lang } from "../common";
 import { getWeatherByCity, getWeatherIcon, formatWeatherResponse } from "./weather.service";
-import { getFavorites } from "../favorites/favorites.service";
+import { getFavorites } from "../favorites";
+import { TOKENS } from "../common";
+import type { ILogger } from "../logger";
 
+@injectable()
 export class WeatherController extends BaseController {
-    constructor(logger: LoggerService) {
+    constructor(@inject(TOKENS.Logger) private logger: ILogger) {
         super(logger);
         this.bindRoutes([
             {
