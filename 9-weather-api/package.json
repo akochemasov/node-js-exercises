@@ -8,7 +8,10 @@
     "dev": "tsx --watch --env-file=.env src/index.ts",
     "build": "esbuild index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --packages=external",
     "start": "node --env-file=.env dist/index.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src/",
+    "lint:fix": "biome check src/ --write",
+    "format": "biome format src/ --write"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +23,7 @@
     "tslog": "^4.10.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.12",
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.8",
     "esbuild": "^0.27.2",

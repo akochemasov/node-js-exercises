@@ -1,31 +1,30 @@
-import { inject, injectable } from "inversify";
-import type { Request, Response, NextFunction } from "express";
-import { BaseController, type Lang } from "../common";
-import { getWeatherByCity, getWeatherIcon, formatWeatherResponse } from "./weather.service";
-import { getFavorites } from "../favorites";
-import { TOKENS } from "../common";
-import type { ILogger } from "../logger";
-import type { IWeatherController } from "./weather.controller.interface";
+import type { NextFunction, Request, Response } from 'express';
+import { inject, injectable } from 'inversify';
+import { BaseController, type Lang, TOKENS } from '../common';
+import { getFavorites } from '../favorites';
+import type { ILogger } from '../logger';
+import type { IWeatherController } from './weather.controller.interface';
+import { formatWeatherResponse, getWeatherByCity, getWeatherIcon } from './weather.service';
 
 @injectable()
 export class WeatherController extends BaseController implements IWeatherController {
-    constructor(@inject(TOKENS.Logger) private logger: ILogger) {
+    constructor(@inject(TOKENS.Logger) logger: ILogger) {
         super(logger);
         this.bindRoutes([
             {
-                path: "/",
-                method: "get",
+                path: '/',
+                method: 'get',
                 func: this.getWeather,
             },
             {
-                path: "/favorites",
-                method: "get",
+                path: '/favorites',
+                method: 'get',
                 func: this.getWeatherByFavorites,
-            }
+            },
         ]);
     }
 
-    async getWeather(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async getWeather(req: Request, res: Response, _next: NextFunction): Promise<void> {
         const { city, lang } = req.query;
 
         if (!city) {
@@ -40,13 +39,13 @@ export class WeatherController extends BaseController implements IWeatherControl
             cities.map(async (c) => {
                 const data = await getWeatherByCity(String(c), langStr);
                 return formatWeatherResponse(data, getWeatherIcon(data?.weather[0]?.icon), langStr);
-            })
+            }),
         );
 
         res.json(results.length === 1 ? results[0] : results);
     }
 
-    async getWeatherByFavorites(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async getWeatherByFavorites(req: Request, res: Response, _next: NextFunction): Promise<void> {
         const { lang } = req.query;
         const langStr = (typeof lang === 'string' ? lang : 'en') as Lang;
 
@@ -61,7 +60,7 @@ export class WeatherController extends BaseController implements IWeatherControl
             Array.from(favorites).map(async (city) => {
                 const data = await getWeatherByCity(city, langStr);
                 return formatWeatherResponse(data, getWeatherIcon(data?.weather[0]?.icon), langStr);
-            })
+            }),
         );
 
         res.json(results.length === 1 ? results[0] : results);

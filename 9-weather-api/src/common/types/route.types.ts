@@ -1,4 +1,4 @@
-import { type Request, type Response, type NextFunction, type Router } from "express";
+import type { NextFunction, Request, Response, Router } from 'express';
 
 export interface RouteConfig {
     path: string;

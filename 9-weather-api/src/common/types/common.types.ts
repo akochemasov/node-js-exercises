@@ -6,4 +6,4 @@ export const TOKENS = {
     WeatherController: Symbol.for('WeatherController'),
     FavoritesController: Symbol.for('FavoritesController'),
     ExceptionFilters: Symbol.for('ExceptionFilters'),
-}
+};

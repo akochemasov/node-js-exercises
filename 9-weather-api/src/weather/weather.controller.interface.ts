@@ -1,4 +1,4 @@
-import type { Router, Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response, Router } from 'express';
 
 export interface IWeatherController {
     readonly route: Router;

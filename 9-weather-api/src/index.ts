@@ -1,11 +1,11 @@
-import "reflect-metadata";
-import { Container, ContainerModule } from "inversify";
-import { App } from "./app";
-import { WeatherController, type IWeatherController } from "./weather";
-import { FavoritesController, type IFavoritesController } from "./favorites";
-import { LoggerService, type ILogger } from "./logger";
-import { ExceptionFilters, type IExceptionFilters } from "./errors";
-import { TOKENS } from "./common/types/common.types";
+import 'reflect-metadata';
+import { Container, ContainerModule } from 'inversify';
+import { App } from './app';
+import { TOKENS } from './common/types/common.types';
+import { ExceptionFilters, type IExceptionFilters } from './errors';
+import { FavoritesController, type IFavoritesController } from './favorites';
+import { type ILogger, LoggerService } from './logger';
+import { type IWeatherController, WeatherController } from './weather';
 
 const appBindings = new ContainerModule((options) => {
     options.bind<ILogger>(TOKENS.Logger).to(LoggerService);
@@ -21,6 +21,6 @@ const init = async () => {
 
     const app = appContainer.get<App>(TOKENS.Application);
     await app.init();
-}
+};
 
 init();
