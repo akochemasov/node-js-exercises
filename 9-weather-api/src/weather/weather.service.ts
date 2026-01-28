@@ -1,5 +1,5 @@
-import type { WeatherResponse, WeatherIconCode } from './weather.types';
 import type { Lang } from '../common';
+import type { WeatherIconCode, WeatherResponse } from './weather.types';
 
 const token = process.env.WEATHER_API_TOKEN;
 
@@ -29,7 +29,10 @@ export const getWeatherIcon = (icon?: string): string => {
     return icons[icon as WeatherIconCode] || '';
 };
 
-export const getWeatherByCity = async (city: string, lang: Lang = 'en'): Promise<WeatherResponse> => {
+export const getWeatherByCity = async (
+    city: string,
+    lang: Lang = 'en',
+): Promise<WeatherResponse> => {
     if (!token) {
         throw new Error('Weather API token is not configured');
     }

@@ -10,6 +10,7 @@
   "author": "akochemasov",
   "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "^2.3.13",
     "jest": "^30.2.0"
   }
 }
