@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx --watch --env-file=.env src/index.ts",
+    "dev:inspect": "tsx --inspect --watch --env-file=.env src/index.ts",
     "build": "esbuild index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --packages=external",
     "start": "node --env-file=.env dist/index.js",
     "typecheck": "tsc --noEmit",
